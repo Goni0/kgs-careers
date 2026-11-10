@@ -939,7 +939,12 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
 .foldall{margin-left:auto;align-self:center;font:inherit;font-size:12.5px;font-weight:700;color:var(--navy2);background:#fff;border:1.5px solid #c9d4e5;border-radius:999px;padding:4px 11px;cursor:pointer;white-space:nowrap}
 .foldall:before{content:"▴ ";font-size:11px}
 .foldall.all:before{content:"▾ "}
-.view .subsec.fold+.subsec.fold{margin-top:10px!important}</style>
+.view .subsec.fold+.subsec.fold{margin-top:10px!important}
+.view .subsec{overflow:clip}details.pos,details.acc,details.bcat{overflow:clip!important}
+details.pos[open]>summary,details.acc[open]>summary,details.bcat[open]>summary{position:sticky;top:var(--vbh,140px);z-index:6;background:#fff;border-radius:14px 14px 0 0;box-shadow:0 6px 10px -8px rgba(20,40,80,.25)}
+.dclose{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 32px);margin:6px 16px 14px;font:inherit;font-size:13.5px;font-weight:800;color:var(--navy2);background:#eef3fb;border:0;border-radius:10px;padding:10px 0;cursor:pointer}
+body.mint .dclose{background:#fdf0ef}
+</style>
 <!-- 조회수 집계 (GoatCounter): 아래 GC_CODE에 GoatCounter 코드만 넣으면 작동 -->
 <script>
   var GC_CODE='kgs-careers';
@@ -2208,6 +2213,23 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
       if(!hd || e.target.closest('a')) return;
       var sec=hd.parentNode; sec.classList.toggle('fold'); sync(sec.closest('section.view')); refresh();
     },true);
+  })();
+
+  // 펼친 상자: 제목 고정 + 아래 '접기' 버튼
+  (function(){
+    function setVbh(){ var v=document.querySelector('section.view.on'); var b=v&&v.querySelector('.vbar'); document.documentElement.style.setProperty('--vbh',(b?b.offsetHeight:0)+'px'); }
+    document.querySelectorAll('details.pos, details.acc, details.bcat').forEach(function(d){
+      var btn=document.createElement('button'); btn.type='button'; btn.className='dclose'; btn.innerHTML='▲ 접기';
+      d.appendChild(btn);
+      btn.addEventListener('click',function(){
+        d.open=false;
+        var v=document.querySelector('section.view.on'), bar=v&&v.querySelector('.vbar'), h=bar?bar.offsetHeight:0;
+        var y=d.getBoundingClientRect().top+window.pageYOffset-h-8;
+        if(d.getBoundingClientRect().top<h) { try{window.scrollTo({top:y,behavior:'instant'})}catch(e){window.scrollTo(0,y)} }
+      });
+    });
+    window.addEventListener('resize',setVbh); document.addEventListener('click',function(){setTimeout(setVbh,50)}); window.addEventListener('popstate',function(){setTimeout(setVbh,50)});
+    setTimeout(setVbh,300);
   })();
   // 상·하반기 전환
   document.querySelectorAll('.seg').forEach(function(g){
