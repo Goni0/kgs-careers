@@ -927,7 +927,7 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
 .n27i{font-size:20px;flex:none}.n27t{flex:1;min-width:0;line-height:1.4}.n27t b{display:block;font-size:14px;font-weight:800}
 .n27t span{display:block;font-size:12.5px;color:rgba(255,255,255,.92)}.n27t i.u{font-style:normal;display:inline-block}
 .n27g{flex:none;font-weight:800;font-size:16px}
-.n27t span.n27s{white-space:nowrap;letter-spacing:-.02em;font-size:min(13px,calc((100vw - 120px) / 17.6))}.n27t b{white-space:nowrap;letter-spacing:-.02em;font-size:min(14px,calc((100vw - 120px) / 14.8))}</style>
+.n27t span.n27s{white-space:nowrap;letter-spacing:-.02em;font-size:min(13px,calc((100vw - 120px) / 17.6))}.n27t b{white-space:nowrap;letter-spacing:-.02em;font-size:min(14px,calc((100vw - 120px) / 14.8))}.vcnt{margin-top:10px;font-size:13px;color:rgba(255,255,255,.85);text-align:center}.vcnt span{margin-right:5px}.vcnt b{color:#ffd27a;font-weight:800}</style>
 <!-- 조회수 집계 (GoatCounter): 아래 GC_CODE에 GoatCounter 코드만 넣으면 작동 -->
 <script>
   var GC_CODE='kgs-careers';
@@ -1020,6 +1020,7 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
     <div class="center">
       <h1>국민의 안전을 지키는 일,<br><em>KGS</em>에서 시작해요</h1>
       <p class="lead"><span aria-hidden="true">👆</span>원하시는 항목을 눌러 보세요</p>
+      <p class="vcnt" hidden><span aria-hidden="true">👀</span>누적 조회 <b class="vcn">-</b>회</p>
     </div>
   </div>
   </div>
@@ -1079,6 +1080,7 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
     <div class="center">
       <h1>LPG 시설개선 현장을<br><em>KGS</em>에서 경험해요</h1>
       <p class="lead"><span aria-hidden="true">👆</span>원하시는 항목을 눌러 보세요</p>
+      <p class="vcnt" hidden><span aria-hidden="true">👀</span>누적 조회 <b class="vcn">-</b>회</p>
     </div>
   </div>
   </div>
@@ -2141,6 +2143,18 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
     document.addEventListener('click',function(){setTimeout(ring,20)}); window.addEventListener('popstate',function(){setTimeout(ring,20)});
     if(document.fonts&&document.fonts.ready) document.fonts.ready.then(ring);
     ring(); setTimeout(ring,100);
+  })();
+
+  // 누적 조회수 표시 (GoatCounter)
+  (function(){
+    if(typeof GC_CODE==='undefined' || !GC_CODE || GC_CODE==='YOUR-CODE') return;
+    function load(){
+      fetch('https://'+GC_CODE+'.goatcounter.com/counter/TOTAL.json').then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+        if(!d || d.count==null) return;
+        document.querySelectorAll('.vcnt').forEach(function(p){ p.querySelector('.vcn').textContent=d.count; p.hidden=false; });
+      }).catch(function(){});
+    }
+    setTimeout(load,1500);
   })();
   // 상·하반기 전환
   document.querySelectorAll('.seg').forEach(function(g){
