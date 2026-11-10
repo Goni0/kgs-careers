@@ -927,7 +927,19 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
 .n27i{font-size:20px;flex:none}.n27t{flex:1;min-width:0;line-height:1.4}.n27t b{display:block;font-size:14px;font-weight:800}
 .n27t span{display:block;font-size:12.5px;color:rgba(255,255,255,.92)}.n27t i.u{font-style:normal;display:inline-block}
 .n27g{flex:none;font-weight:800;font-size:16px}
-.n27t span.n27s{white-space:nowrap;letter-spacing:-.02em;font-size:min(13px,calc((100vw - 120px) / 17.6))}.n27t b{white-space:nowrap;letter-spacing:-.02em;font-size:min(14px,calc((100vw - 120px) / 14.8))}.vcnt{margin-top:10px;font-size:13px;color:rgba(255,255,255,.85);text-align:center}.vcnt span{margin-right:5px}.vcnt b{color:#ffd27a;font-weight:800}@media(min-width:900px){.topinfo{max-width:1240px!important;flex-wrap:wrap;row-gap:12px}.topinfo .n27{margin:0;flex:1 1 300px;min-width:300px;max-width:100%}}@media(max-width:899px){.stage .center .lead{font-size:calc(14px*var(--k,1));padding:calc(4px*var(--k,1)) calc(11px*var(--k,1));margin-top:calc(10px*var(--k,1))}.stage .vcnt{font-size:calc(12px*var(--k,1));margin-top:calc(7px*var(--k,1))}}</style>
+.n27t span.n27s{white-space:nowrap;letter-spacing:-.02em;font-size:min(13px,calc((100vw - 120px) / 17.6))}.n27t b{white-space:nowrap;letter-spacing:-.02em;font-size:min(14px,calc((100vw - 120px) / 14.8))}.vcnt{margin-top:10px;font-size:13px;color:rgba(255,255,255,.85);text-align:center}.vcnt span{margin-right:5px}.vcnt b{color:#ffd27a;font-weight:800}@media(min-width:900px){.topinfo{max-width:1240px!important;flex-wrap:wrap;row-gap:12px}.topinfo .n27{margin:0;flex:1 1 300px;min-width:300px;max-width:100%}}@media(max-width:899px){.stage .center .lead{font-size:calc(14px*var(--k,1));padding:calc(4px*var(--k,1)) calc(11px*var(--k,1));margin-top:calc(10px*var(--k,1))}.stage .vcnt{font-size:calc(12px*var(--k,1));margin-top:calc(7px*var(--k,1))}}
+.lead2.one1{white-space:nowrap;letter-spacing:-.02em;font-size:min(14px,calc((100vw - 40px) / 21.4))}
+.view .subsec>.subh{cursor:pointer;position:relative;padding-right:46px;-webkit-tap-highlight-color:transparent;user-select:none}
+.view .subsec>.subh:after{content:"";position:absolute;right:18px;top:50%;width:9px;height:9px;border-right:2.5px solid rgba(255,255,255,.9);border-bottom:2.5px solid rgba(255,255,255,.9);transform:translateY(-30%) rotate(-135deg);transition:transform .2s}
+.view .subsec.fold>.subh:after{transform:translateY(-70%) rotate(45deg)}
+.view .subsec>.subh.shb{padding-right:46px}
+.view .subsec.fold>:not(.subh){display:none!important}
+.view .subsec.fold{padding-bottom:0}
+.view .subsec.fold>.subh{margin-bottom:0}
+.foldall{margin-left:auto;align-self:center;font:inherit;font-size:12.5px;font-weight:700;color:var(--navy2);background:#fff;border:1.5px solid #c9d4e5;border-radius:999px;padding:4px 11px;cursor:pointer;white-space:nowrap}
+.foldall:before{content:"▴ ";font-size:11px}
+.foldall.all:before{content:"▾ "}
+.view .subsec.fold+.subsec.fold{margin-top:10px!important}</style>
 <!-- 조회수 집계 (GoatCounter): 아래 GC_CODE에 GoatCounter 코드만 넣으면 작동 -->
 <script>
   var GC_CODE='kgs-careers';
@@ -1378,7 +1390,7 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
 <!-- 모집분야 -->
 <section class="view" id="jobs">
   <div class="sec-h"><h2>모집분야별 인원 및 직무</h2></div>
-  <p class="lead2"><span class="nw2">회차별 모집 인원과</span><br><span class="nw2">직무별 업무를 확인하세요.</span></p>
+  <p class="lead2 one1">회차별 모집 인원과 직무별 업무를 확인하세요.</p>
   <div class="subsec" data-name="2026 하반기"><p class="subh">2026 하반기 · 80명</p>
 
   <div class="pos-group">
@@ -2167,6 +2179,35 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
     window.addEventListener('resize',function(){setTimeout(vcFit,60)});
     document.addEventListener('click',function(){setTimeout(vcFit,120)});
     setTimeout(load,1500);
+  })();
+
+  // 소제목 눌러 접기/펼치기 + 모두 접기
+  (function(){
+    function refresh(){ if(typeof fitLines==='function') setTimeout(fitLines,20); window.dispatchEvent(new Event('scroll')); }
+    document.querySelectorAll('section.view').forEach(function(v){
+      var subs=v.querySelectorAll(':scope > .subsec'); if(!subs.length) return;
+      var h=v.querySelector(':scope > .sec-h'); if(!h) return;
+      var b=document.createElement('button'); b.type='button'; b.className='foldall'; b.textContent='모두 접기';
+      h.appendChild(b);
+      b.addEventListener('click',function(){
+        var anyOpen=[].some.call(subs,function(x){return !x.classList.contains('fold')});
+        subs.forEach(function(x){x.classList.toggle('fold',anyOpen)});
+        sync(v); refresh();
+      });
+    });
+    function sync(v){
+      var b=v.querySelector('.foldall'); if(!b) return;
+      var subs=v.querySelectorAll(':scope > .subsec');
+      var anyOpen=[].some.call(subs,function(x){return !x.classList.contains('fold')});
+      b.textContent=anyOpen?'모두 접기':'모두 펼치기'; b.classList.toggle('all',!anyOpen);
+    }
+    document.addEventListener('click',function(e){
+      var c=e.target.closest && e.target.closest('.chips button[data-s]');
+      if(c){ var t=document.getElementById(c.dataset.s); if(t && t.classList.contains('fold')){ t.classList.remove('fold'); sync(t.closest('section.view')); refresh(); } return; }
+      var hd=e.target.closest && e.target.closest('.view .subsec > .subh');
+      if(!hd || e.target.closest('a')) return;
+      var sec=hd.parentNode; sec.classList.toggle('fold'); sync(sec.closest('section.view')); refresh();
+    },true);
   })();
   // 상·하반기 전환
   document.querySelectorAll('.seg').forEach(function(g){
