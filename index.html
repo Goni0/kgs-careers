@@ -941,8 +941,8 @@ body.mint .iv .sec-h .ref{background:#fff3e8}
 .foldall.all:before{content:"▾ "}
 .view .subsec.fold+.subsec.fold{margin-top:10px!important}
 .view .subsec{overflow:clip}details.pos,details.acc,details.bcat{overflow:clip!important}
-details.pos[open]>summary,details.acc[open]>summary,details.bcat[open]>summary{position:sticky;top:var(--vbh,140px);z-index:6;background:#fff;border-radius:14px 14px 0 0;box-shadow:0 6px 10px -8px rgba(20,40,80,.25)}
-.dclose{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 32px);margin:6px 16px 14px;font:inherit;font-size:13.5px;font-weight:800;color:var(--navy2);background:#eef3fb;border:0;border-radius:10px;padding:10px 0;cursor:pointer}
+details.pos.tall[open]>summary,details.acc.tall[open]>summary,details.bcat.tall[open]>summary{position:sticky;top:var(--vbh,140px);z-index:6;background:#fff;border-radius:14px 14px 0 0;box-shadow:0 6px 10px -8px rgba(20,40,80,.25)}
+details:not(.tall)>.dclose{display:none!important}.dclose{display:flex;align-items:center;justify-content:center;gap:6px;width:calc(100% - 32px);margin:6px 16px 14px;font:inherit;font-size:13.5px;font-weight:800;color:var(--navy2);background:#eef3fb;border:0;border-radius:10px;padding:10px 0;cursor:pointer}
 body.mint .dclose{background:#fdf0ef}
 </style>
 <!-- 조회수 집계 (GoatCounter): 아래 GC_CODE에 GoatCounter 코드만 넣으면 작동 -->
@@ -1623,7 +1623,7 @@ body.mint .dclose{background:#fdf0ef}
     <div class="in"><ul class="dot fitl"><li><b>장애인</b>: 「장애인고용촉진 및 직업재활법 시행령」 제3조</li><li><b>자립준비청년</b>: 「아동복지법」 제38조 제2항 제3·4호 해당자</li></ul></div>
   </details>
   <details class="acc"><summary>2026 상반기에만 있었던 분야 — 전산 · 경력직 <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></summary>
-    <div class="in"><ul class="dot fitl"><li><b>전산</b>: 관련 학사 이상 또는 정보처리·정보보안기사 이상</li><li><b>결산회계</b>: 공기업·준정부기관·상장기업 등 재무회계 5년 이상</li><li><b>가스안전고객센터관리</b>: 고객센터 관리자 경력 3년 이상</li><li><b>구조물 안전성 평가</b>: 토목·건축 학사 + 구조설계·해석 5년 (석사 3년)</li><li><b>독성가스 중화처리</b>: 이학·공학 학사 + 가스 공정·설비 3년 이상</li></ul><div class="qnote"><p><b>전산 관련학과</b>컴퓨터·정보통신·SW·전자·AI 등</p></div></div>
+    <div class="in"><ul class="dot fitl"><li><b>전산</b>: 관련 학사 이상 또는 정보처리·정보보안기사 이상</li><li><b>결산회계</b>: 공기업·준정부기관·상장기업 등 재무회계 5년 이상</li><li><b>가스안전고객센터관리</b>: 고객센터 관리자 경력 3년 이상</li><li><b>구조물 안전성 평가</b>: 토목·건축 학사 + 구조설계·해석 5년 (석사 3년)</li><li><b>독성가스 중화처리</b>: 이학·공학 학사 + 가스 공정·설비 3년 이상</li></ul><div class="qnote"><p><b>전산 학과</b>컴퓨터·정보통신·SW·전자·AI 등</p></div></div>
   </details>
 </div>
   <p class="small evnote"><span class="mk">※</span><span class="el">추후 증빙이 불가능하면(학위 미취득, 경력 증빙 불가 등) 합격이 취소됩니다.</span><span class="el">경력으로 자격을 충족하는 경우 경력증명서에 수행직무를 반드시 기재하세요.</span></p>
@@ -2221,6 +2221,7 @@ body.mint .dclose{background:#fdf0ef}
     document.querySelectorAll('details.pos, details.acc, details.bcat').forEach(function(d){
       var btn=document.createElement('button'); btn.type='button'; btn.className='dclose'; btn.innerHTML='▲ 접기';
       d.appendChild(btn);
+      d.addEventListener('toggle',function(){ if(!d.open){ d.classList.remove('tall'); return; } setTimeout(function(){ d.classList.toggle('tall', d.offsetHeight > window.innerHeight*0.85); },0); });
       btn.addEventListener('click',function(){
         d.open=false;
         var v=document.querySelector('section.view.on'), bar=v&&v.querySelector('.vbar'), h=bar?bar.offsetHeight:0;
