@@ -992,7 +992,7 @@ a.mascot[href="#senior"] .mlab{letter-spacing:-.05em;padding-left:.7em;padding-r
   .dk-inl{display:inline!important;white-space:normal!important}
 }
 @media(max-width:899px){ .dk-only{display:none!important} }
-@media(min-width:900px){.dk-sp{display:none}}</style>
+@media(min-width:900px){.dk-sp{display:none}}dk-s{display:inline!important;padding:0!important;margin:0!important;background:none!important;border:0!important}@media(max-width:899px){dk-s{display:none!important}}.iv p.tnote{display:block!important}</style>
 <!-- 조회수 집계 (GoatCounter): 아래 GC_CODE에 GoatCounter 코드만 넣으면 작동 -->
 <script>
   var GC_CODE='kgs-careers';
@@ -2338,7 +2338,7 @@ a.mascot[href="#senior"] .mlab{letter-spacing:-.05em;padding-left:.7em;padding-r
           var pt=prevText(br);
           if(END.test(pt)) return;
           br.classList.add('dk-hide');
-          var sp=document.createElement('span'); sp.className='dk-only'; sp.textContent=' ';
+          var sp=document.createElement('dk-s'); sp.textContent=' ';
           br.parentNode.insertBefore(sp,br);
         });
         // 2) 한 줄씩 끊어 둔 덩어리: 문장 끝이 아니면 이어 쓰기
@@ -2350,7 +2350,7 @@ a.mascot[href="#senior"] .mlab{letter-spacing:-.05em;padding-left:.7em;padding-r
           if(!nx) return;
           var sp;
           if(END.test(t)){ sp=document.createElement('br'); sp.className='dk-only'; }
-          else { sp=document.createElement('span'); sp.className='dk-only'; sp.textContent=' '; }
+          else { sp=document.createElement('dk-s'); sp.textContent=' '; }
           el.parentNode.insertBefore(sp,el.nextSibling);
         });
         // 3) 한 덩어리 안에 문장이 여러 개면 문장마다 줄바꿈
@@ -2360,7 +2360,7 @@ a.mascot[href="#senior"] .mlab{letter-spacing:-.05em;padding-left:.7em;padding-r
           var parts=n.nodeValue.split(/(?<=[가-힣)][.!?])\s+(?=[^\s(])/);
           if(parts.length<2) return;
           var f=document.createDocumentFragment();
-          parts.forEach(function(pt,i){ if(i){ var b=document.createElement('br'); b.className='dk-only'; f.appendChild(b); var sp=document.createElement('span'); sp.className='dk-hide-sp'; f.appendChild(document.createTextNode('')); } f.appendChild(document.createTextNode(pt)); });
+          parts.forEach(function(pt,i){ if(i){ var b=document.createElement('br'); b.className='dk-only'; f.appendChild(b);  } f.appendChild(document.createTextNode(pt)); });
           n.parentNode.replaceChild(f,n);
         });
       });
