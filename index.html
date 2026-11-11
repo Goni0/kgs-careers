@@ -992,7 +992,7 @@ a.mascot[href="#senior"] .mlab{letter-spacing:-.05em;padding-left:.7em;padding-r
   .dk-inl{display:inline!important;white-space:normal!important}
 }
 @media(max-width:899px){ .dk-only{display:none!important} }
-</style>
+@media(min-width:900px){.dk-sp{display:none}}</style>
 <!-- 조회수 집계 (GoatCounter): 아래 GC_CODE에 GoatCounter 코드만 넣으면 작동 -->
 <script>
   var GC_CODE='kgs-careers';
@@ -1168,7 +1168,7 @@ a.mascot[href="#senior"] .mlab{letter-spacing:-.05em;padding-left:.7em;padding-r
   <div class="card mission">
     <p class="small" style="color:var(--blue);font-weight:800">MISSION</p>
     <p class="mq">국민과 함께하는 가스안전,<br>가스안전산업과 함께 만드는 안전한 세상</p>
-    <p class="muted" style="margin-top:10px">가스안전, 안전한 세상 구현이라는 본원적 목표를 가스안전산업 발전과 연계하고, 가스산업 생태계 이해관계자가 함께 만들어 가는 가스안전의 특징을 담았습니다.</p>
+    <p class="muted" style="margin-top:10px">가스안전, 안전한 세상 구현이라는 본원적 목표를 가스안전산업 발전과 연계하고,<br class="dk-only dk-keep"><span class="dk-sp"> </span>가스산업 생태계 이해관계자가 함께 만들어 가는 가스안전의 특징을 담았습니다.</p>
   </div>
 
   <div class="card">
@@ -2334,7 +2334,7 @@ a.mascot[href="#senior"] .mlab{letter-spacing:-.05em;padding-left:.7em;padding-r
       roots.forEach(function(r){
         // 1) 문장 중간의 <br>은 데스크톱에서 공백으로
         r.querySelectorAll('br').forEach(function(br){
-          if(br.closest('.chips,svg,summary,.mlab,.kpi,table')) return;
+          if(br.closest('.chips,svg,summary,.mlab,.kpi,table')||br.classList.contains('dk-keep')) return;
           var pt=prevText(br);
           if(END.test(pt)) return;
           br.classList.add('dk-hide');
