@@ -1001,6 +1001,7 @@ a.mascot[href="#senior"] .mlab{letter-spacing:-.05em;padding-left:.7em;padding-r
     try{
       if(!window.goatcounter || !window.goatcounter.count) return;
       var page=id||'home';
+      if(page===window.__gcLast) return; window.__gcLast=page;
       var lab=document.querySelector('a.mascot[href="#'+page+'"] .mlab');
       var title=page==='home'?'정규직 홈':page==='ihome'?'시설개선 인턴 홈':((/^i-/.test(page)?'인턴 · ':'정규직 · ')+(lab?lab.textContent:page));
       window.goatcounter.count({path:'/'+page, title:title});
